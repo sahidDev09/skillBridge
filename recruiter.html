@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recruiter Portal | SkillBridge</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    .recruiter-container {
+      max-width: 600px;
+      margin: 60px auto;
+      padding: 0 24px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--text);
+      font-family: inherit;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+    #upload-section {
+      display: none; /* Hidden until PIN is correct */
+    }
+    .error-msg {
+      color: var(--danger);
+      margin-top: 8px;
+      font-size: 0.9rem;
+      display: none;
+    }
+    .success-msg {
+      color: var(--success);
+      margin-top: 16px;
+      font-size: 1rem;
+      font-weight: 500;
+      display: none;
+      padding: 12px;
+      background: rgba(16, 185, 129, 0.1);
+      border-radius: var(--radius);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <header class="site-header">
+      <div class="brand-group">
+        <a href="index.html" class="brand-logo">
+          <i data-lucide="layers" class="d-icon" style="color: var(--primary);"></i>
+          <span>SkillBridge</span>
+        </a>
+      </div>
+      <nav class="top-nav">
+        <a href="index.html" class="nav-link"><i data-lucide="home" class="d-icon"></i>Home</a>
+        <a href="dashboard.html" class="nav-link"><i data-lucide="layout-dashboard" class="d-icon"></i>Dashboard</a>
+        <a href="careers.html" class="nav-link"><i data-lucide="compass" class="d-icon"></i>Explore Careers</a>
+      </nav>
+      <div class="header-actions">
+        <button class="btn btn-icon" id="theme-toggle" aria-label="Toggle theme"><i data-lucide="sun" class="d-icon" id="theme-icon-light" style="display:none;"></i><i data-lucide="moon" class="d-icon" id="theme-icon-dark"></i></button>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="recruiter-container">
+        
+        <!-- PIN Authentication Section -->
+        <div id="pin-section" class="panel glass-card" style="text-align: center; padding: 40px;">
+          <div style="display: inline-flex; justify-content: center; align-items: center; width: 64px; height: 64px; background: rgba(59, 130, 246, 0.1); border-radius: 50%; color: var(--primary); margin-bottom: 24px;">
+            <i data-lucide="lock" style="width: 32px; height: 32px;"></i>
+          </div>
+          <h2 style="margin-bottom: 12px;">Recruiter Access</h2>
+          <p style="color: var(--muted); margin-bottom: 24px;">Enter your PIN to post new jobs.</p>
+          
+          <div style="max-width: 300px; margin: 0 auto;">
+            <input type="password" id="pin-input" placeholder="Enter PIN" style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text); text-align: center; letter-spacing: 4px; font-size: 1.2rem; margin-bottom: 16px;">
+            <button id="pin-submit" class="btn btn-primary" style="width: 100%;">Unlock Access</button>
+            <div id="pin-error" class="error-msg">Incorrect PIN. Please try again.</div>
+          </div>
+        </div>
+
+        <!-- Job Upload Section -->
+        <div id="upload-section" class="panel glass-card" style="padding: 40px;">
+          <h2 style="margin-bottom: 24px; display: flex; align-items: center; gap: 12px;">
+            <i data-lucide="briefcase" style="color: var(--primary);"></i> Post a New Job
+          </h2>
+          
+          <form id="job-form">
+            <div class="form-group">
+              <label for="job-title">Job Title</label>
+              <input type="text" id="job-title" placeholder="e.g., Senior AI Engineer" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="job-category">Category</label>
+              <select id="job-category" required>
+                <option value="developer">Developer</option>
+                <option value="cloud">Cloud</option>
+                <option value="data">Data / AI</option>
+                <option value="product">Product</option>
+                <option value="design">Design</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="job-description">Description</label>
+              <textarea id="job-description" rows="4" placeholder="Brief description of the role..." required></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="job-salary">Salary Range</label>
+              <input type="text" id="job-salary" placeholder="e.g., ৳ 1,200,000 - 1,600,000" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="job-skills">Required Skills (comma separated)</label>
+              <input type="text" id="job-skills" placeholder="e.g., Python, Machine Learning, AWS" required>
+            </div>
+
+            <div class="form-group">
+              <label for="job-tech">Technologies/Tools (comma separated)</label>
+              <input type="text" id="job-tech" placeholder="e.g., TensorFlow, PyTorch, Docker" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 12px; display: flex; justify-content: center; align-items: center; gap: 8px;">
+              Publish Job <i data-lucide="send"></i>
+            </button>
+            <div id="job-success" class="success-msg">Job successfully posted! It is now live in the Career Explorer.</div>
+          </form>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="js/mock-data.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/recruiter.js"></script>
+</body>
+</html>

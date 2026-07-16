@@ -1,4 +1,4 @@
-const mockCareers = [
+const defaultCareers = [
   {
     id: 'frontend-developer',
     title: 'Frontend Developer',
@@ -66,6 +66,20 @@ const mockCareers = [
     requiredSkills: ['Roadmapping', 'Research', 'Communication', 'Strategy'],
   },
 ];
+
+let loadedCareers = defaultCareers;
+const storedCareers = localStorage.getItem('skillbridge_jobs');
+if (storedCareers) {
+  try {
+    loadedCareers = JSON.parse(storedCareers);
+  } catch (e) {
+    console.error('Error parsing stored careers', e);
+  }
+} else {
+  localStorage.setItem('skillbridge_jobs', JSON.stringify(defaultCareers));
+}
+
+const mockCareers = loadedCareers;
 
 const demoUserProfile = {
   name: 'Fahima',

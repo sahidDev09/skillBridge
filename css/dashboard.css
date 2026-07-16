@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: 280px 1fr;
   gap: 24px;
+  align-items: start;
 }
 
 .sidebar {
@@ -10,7 +11,20 @@
   border-radius: var(--radius);
   padding: 24px;
   box-shadow: var(--shadow);
-  height: fit-content;
+  height: calc(100vh - 48px);
+  position: sticky;
+  top: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar::-webkit-scrollbar {
+  display: none;
+}
+.sidebar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .sidebar-brand {

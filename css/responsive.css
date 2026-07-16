@@ -38,16 +38,22 @@
   }
 
   .site-header {
-    flex-direction: column;
-    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 16px;
   }
 
   .top-nav {
-    gap: 10px;
+    order: 3;
+    width: 100%;
+    gap: 8px;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 8px;
   }
 
   .header-actions {
-    justify-content: space-between;
+    flex-grow: 1;
+    justify-content: flex-end;
   }
 
   .search-panel {

@@ -110,6 +110,14 @@ a {
   flex-wrap: wrap;
 }
 
+.top-nav::-webkit-scrollbar {
+  display: none;
+}
+.top-nav {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 .nav-link,
 .sidebar-link {
   color: var(--muted);
@@ -551,7 +559,65 @@ p {
 
 .primary-card,
 .panel {
+  position: relative;
   overflow: hidden;
+}
+
+/* Animated Hero Graphic */
+.hero-animated-graphic {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px 0;
+}
+
+.anim-ring-1 {
+  animation: drawRing1 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards, floatRing 12s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+.anim-ring-2 {
+  animation: drawRing2 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s forwards, spinReverse 16s linear infinite;
+  transform-origin: center;
+}
+.anim-ring-3 {
+  animation: drawRing3 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.6s forwards, spin 20s linear infinite;
+  transform-origin: center;
+}
+.anim-pulse {
+  animation: pulseCore 3s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes drawRing1 {
+  to { stroke-dashoffset: 110; } /* ~78% */
+}
+@keyframes drawRing2 {
+  to { stroke-dashoffset: 140; } /* ~60% */
+}
+@keyframes drawRing3 {
+  to { stroke-dashoffset: 80; } /* ~60% */
+}
+@keyframes floatRing {
+  0% { transform: rotate(0deg) scale(1); }
+  100% { transform: rotate(15deg) scale(1.02); }
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes spinReverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+@keyframes pulseCore {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.6); opacity: 0.3; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+
+.visual-header {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .result-grid {
@@ -794,12 +860,27 @@ footer {
 
 @media (max-width: 720px) {
   .site-header {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
+    flex-direction: row;
+    align-items: center;
   }
 
-  .header-actions,
-  .top-nav,
+  .header-actions {
+    flex-grow: 1;
+    justify-content: flex-end;
+  }
+
+  .top-nav {
+    width: 100%;
+    order: 3;
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 8px;
+    gap: 8px;
+  }
+  
   .search-panel {
     width: 100%;
     justify-content: flex-start;
